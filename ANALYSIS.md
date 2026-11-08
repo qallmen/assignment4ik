@@ -7,7 +7,7 @@
 - Public checks: `python tools/run.py --setup`, then `python tools/run.py --check` (44 public cases and the repeated mixed batch; all pass).
 - Own tests: `python tests/student/run_student.py` (fixtures in `tests/student/cases.json`, results in `tests/student/results.md`; 23 of 23 pass).
 - Benchmark: `javac -cp Java/build -d tests/student/out tests/student/Bench.java`, then `java -cp Java/build:tests/student/out Bench > tests/student/bench.md`.
-- Repository: https://github.com/bozgulannazerke-lang/asik4_DAA. The exact commit URL (with the full 40-character SHA) is submitted in Moodle.
+- Repository:https://github.com/qallmen/assignment4ik.git. The exact commit URL (with the full 40-character SHA) is submitted in Moodle.
 
 ## Algorithm explanations
 
