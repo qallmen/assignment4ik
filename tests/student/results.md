@@ -1,0 +1,25 @@
+|Command|Input or fixture path|Expected result|Actual result / log|What it checks|
+|---|---|---|---|---|
+|`python tests/student/run_student.py`|tests/student/cases.json: lcs-identical|length=3, any valid LCS|PASS: {"length":3,"sequence":"abc"}|Equal strings: the diagonal branch is taken at every step.|
+|`python tests/student/run_student.py`|tests/student/cases.json: lcs-no-common|length=0, any valid LCS|PASS: {"length":0,"sequence":""}|No shared characters: wrong base case or reconstruction loop would emit garbage.|
+|`python tests/student/run_student.py`|tests/student/cases.json: lcs-classic|length=4, any valid LCS|PASS: {"length":4,"sequence":"GTAB"}|Non-contiguous optimum with mismatch transitions on both sides.|
+|`python tests/student/run_student.py`|tests/student/cases.json: lcs-both-empty|length=0, any valid LCS|PASS: {"length":0,"sequence":""}|Both inputs empty.|
+|`python tests/student/run_student.py`|tests/student/cases.json: merge-two|cost=12, any valid plan|PASS: {"cost":12,"plan":[[0,0,1]]}|Smallest non-trivial interval; plan has exactly n-1 = 1 merge.|
+|`python tests/student/run_student.py`|tests/student/cases.json: merge-adjacency|cost=404, any valid plan|PASS: {"cost":404,"plan":[[0,0,1],[2,2,3],[0,1,3]]}|Optimum 404 = (1+100)+(1+100)+202; a greedy merge of the two smallest (non-adjacent) blocks violates adjacency.|
+|`python tests/student/run_student.py`|tests/student/cases.json: tree-single|weight=7, any independent set of that weight|PASS: {"weight":7,"selected":[0]}|Single vertex, no edges.|
+|`python tests/student/run_student.py`|tests/student/cases.json: tree-star|weight=15, any independent set of that weight|PASS: {"weight":15,"selected":[1,2,3]}|Leaves beat the centre (15 vs 1); take/skip at the root.|
+|`python tests/student/run_student.py`|tests/student/cases.json: tree-chain-four|weight=6, any independent set of that weight|PASS: {"weight":6,"selected":[0,3]}|Reconstruction must respect the parent decision (0 and 3, not 1 and 3).|
+|`python tests/student/run_student.py`|tests/student/cases.json: tree-inner-optimum|weight=10, any independent set of that weight|PASS: {"weight":10,"selected":[1]}|Best vertex is not vertex 0 and edges are listed child-first: detects dependence on root or edge direction.|
+|`python tests/student/run_student.py`|tests/student/cases.json: naive-no-match|{"positions":[]}|PASS: {"positions":[]}|No occurrence.|
+|`python tests/student/run_student.py`|tests/student/cases.json: naive-whole-text|{"positions":[0]}|PASS: {"positions":[0]}|Last valid start equals 0 when pattern length equals text length.|
+|`python tests/student/run_student.py`|tests/student/cases.json: kmp-fallback|{"positions":[10]}|PASS: {"positions":[10]}|Several partial matches that need prefix-function fallback before the real match.|
+|`python tests/student/run_student.py`|tests/student/cases.json: kmp-period|{"positions":[0,3,6]}|PASS: {"positions":[0,3,6]}|Fallback after a full match keeps the periodic occurrences.|
+|`python tests/student/run_student.py`|tests/student/cases.json: rk-hash-equal-not-match|{"positions":[2]}|PASS: {"positions":[2]}|'dj' and 'ab' both hash to 75 (base 31, mod 101): reporting on equal hash alone would also return 0.|
+|`python tests/student/run_student.py`|tests/student/cases.json: rk-rolling|{"positions":[2,5]}|PASS: {"positions":[2,5]}|Many rolling updates, including negative remainders after subtracting the leftmost character.|
+|`python tests/student/run_student.py`|tests/student/cases.json: suffix-distinct|{"sa":[0,1,2],"lcp":[0,0,0],"repeated":""}|PASS: {"sa":[0,1,2],"lcp":[0,0,0],"repeated":""}|No repeated substring: repeated must be the empty string.|
+|`python tests/student/run_student.py`|tests/student/cases.json: suffix-mississippi|{"sa":[10,7,4,1,0,9,8,6,3,5,2],"lcp":[0,1,1,4,0,0,1,0,2,1,3],"repeated":"issi"}|PASS: {"sa":[10,7,4,1,0,9,8,6,3,5,2],"lcp":[0,1,1,4,0,0,1,0,2,1,3],"repeated":"issi"}|Several doubling rounds and Kasai reuse; the unique maximum LCP 4 gives 'issi'.|
+|`python tests/student/run_student.py`|tests/student/cases.json: aho-nested|{"counts":[[2,2,0,1,0,2,0]]}|PASS: {"counts":[[2,2,0,1,0,2,0]]}|Patterns that are prefixes/suffixes of each other; failure-link propagation.|
+|`python tests/student/run_student.py`|tests/student/cases.json: aho-overlap|{"counts":[[3]]}|PASS: {"counts":[[3]]}|Overlapping matches are all counted.|
+|`python tests/student/run_student.py`|tests/student/cases.json: aho-duplicates|{"counts":[[2,1,2],[0,0,0]]}|PASS: {"counts":[[2,1,2],[0,0,0]]}|Duplicate patterns share a state but keep separate columns; empty text gives zeros.|
+|`python tests/student/run_student.py`|tests/student/cases.json: aho-reset|{"counts":[[0],[0]]}|PASS: {"counts":[[0],[0]]}|Automaton state must reset between texts: 'a' then 'b' must not form 'ab'.|
+|`python tests/student/run_student.py`|generated in run_student.py|weight=50000, any independent set of that weight|PASS: weight=50000|Path of 100000 vertices: recursion would overflow the stack; an iterative DP must not.|
